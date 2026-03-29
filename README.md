@@ -1,85 +1,70 @@
-# 📚 Shelfie — MongoDB Edition
+# 📚 Shelfie — MongoDB Edition 
 
-Projeto migrado de MySQL para MongoDB, com Docker configurado e pronto para rodar.
+Este projeto é o resultado de um **trabalho em grupo** desenvolvido para a disciplina de **Projeto de Banco de Dados** (Curso de ADS - UNINASSAU).
 
----
+Originalmente concebido em PHP com MySQL (XAMPP), o projeto passou por uma **modernização arquitetural completa**. Minha principal contribuição foi liderar a **migração do banco de dados para MongoDB** e a **containerização da infraestrutura** utilizando Docker e Nginx.
 
-## 🚀 Como rodar (qualquer PC com Docker instalado)
+-----
 
-### 1. Instale o Docker Desktop
-- Windows/Mac: https://www.docker.com/products/docker-desktop
-- Linux: https://docs.docker.com/engine/install/
+## 🛠️ Meu Papel e Contribuições (DevOps & Migration)
 
-### 2. Abra o terminal na pasta do projeto
+Atuei como responsável pela infraestrutura e transição tecnológica:
 
-```bash
-cd shelfie-mongo
-```
+  * **Migração de Banco de Dados:** Refatoração da camada de persistência, saindo do modelo relacional (MySQL) para documentos flexíveis (**MongoDB**).
+  * **Dockerização:** Criação de `Dockerfiles` customizados para PHP 8.2 com as extensões do MongoDB.
+  * **Orquestração:** Uso de **Docker Compose** para gerenciar os 3 containers (App, DB, Proxy).
+  * **Nginx como Proxy Reverso:** Configuração do servidor web para atuar como porta de entrada e camada de abstração.
+  * **Habilidades DevOps:** Demonstração de infraestrutura como código (IaC) e ambiente portátil para trabalho em equipe.
 
-### 3. Suba os containers com um único comando
+-----
 
-```bash
-docker compose up --build
-```
+## 🚀 Como rodar (Qualquer PC com Docker instalado)
 
-Na primeira vez vai baixar as imagens e instalar a extensão do MongoDB (~2 min).
+1.  **Instale o Docker Desktop**
 
-### 4. Acesse no navegador
+      * [Windows/Mac](https://www.docker.com/products/docker-desktop) | [Linux](https://docs.docker.com/engine/install/)
 
-```
-http://localhost:8080
-```
+2.  **Abra o terminal na pasta do projeto**
 
-Pronto! 🎉
+    ```bash
+    cd shelfie-mongo
+    ```
 
----
+3.  **Suba os containers com um único comando**
 
-## 🛑 Para parar o projeto
+    ```bash
+    docker compose up --build
+    ```
 
-```bash
-docker compose down
-```
+    *Na primeira vez, o Docker baixará as imagens e instalará a extensão do MongoDB (\~2 min).*
 
-Para parar E apagar todos os dados do banco:
+4.  **Acesse no navegador**
+    [http://localhost:8080](https://www.google.com/search?q=http://localhost:8080)
 
-```bash
-docker compose down -v
-```
+-----
 
----
+## 🗂️ Estrutura do Projeto
 
-## 🗂️ Estrutura do projeto
-
-```
+```text
 shelfie-mongo/
-├── docker-compose.yml       ← Orquestra os 3 containers
-├── nginx.conf               ← Configuração do servidor web
+├── docker-compose.yml       ← Orquestra os 3 containers (Web, App, DB)
+├── nginx.conf               ← Configuração do servidor web (Proxy Reverso)
 ├── mongo-init/
-│   └── init.js              ← Cria coleções e índices no MongoDB
+│   └── init.js              ← Seed: Cria coleções e índices no MongoDB
 └── app/
-    ├── Dockerfile           ← PHP 8.2 + extensão MongoDB
-    ├── conexao.php          ← Conexão e helpers do MongoDB
-    ├── login.php
-    ├── index.php
-    ├── meus_livros.php
-    ├── adicionar_livro.php
-    ├── editar_livro.php
-    ├── estatisticas.php
-    ├── perfil.php
-    ├── processa_exclusao.php
-    ├── processa_favorito.php
-    ├── logout.php
-    ├── css/
-    ├── js/
-    ├── img/
-    └── templates/
+    ├── Dockerfile           ← Imagem PHP 8.2 + Extensão MongoDB
+    ├── conexao.php          ← Lógica de conexão adaptada para NoSQL
+    └── [Código-Fonte PHP]   ← Crud da Biblioteca
 ```
 
----
+-----
 
-## 🗄️ Modelo de dados no MongoDB
+## 🗄️ Modelo de Dados no MongoDB
 
-### Coleção: `usuarios`
+A migração permitiu uma estrutura mais flexível em comparação ao MySQL original:
+
+**Coleção: `usuarios`**
+
 ```json
 {
   "_id": ObjectId,
@@ -90,41 +75,36 @@ shelfie-mongo/
 }
 ```
 
-### Coleção: `livros`
+**Coleção: `livros`**
+
 ```json
 {
   "_id": ObjectId,
   "usuario_id": "string (ref ao _id do usuário)",
   "titulo": "string",
   "autor": "string",
-  "editora": "string",
-  "categoria": "string",
   "andamento": "Quero Ler | Lendo | Lido | Abandonei",
   "nota": 1-5,
-  "resenha": "string",
-  "favorito": false,
-  "data_adicao": ISODate
+  "favorito": boolean
 }
 ```
 
----
+-----
 
-## 🔐 Credenciais do banco (apenas uso interno entre containers)
+## 🔐 Credenciais do Banco (Uso interno entre containers)
 
-| Parâmetro | Valor         |
-|-----------|---------------|
-| Host      | mongodb       |
-| Porta     | 27017         |
-| Banco     | shelfie       |
-| Usuário   | shelfie_user  |
-| Senha     | shelfie123    |
+| Parâmetro | Valor |
+| :--- | :--- |
+| **Host** | mongodb |
+| **Porta** | 27017 |
+| **Banco** | shelfie |
+| **Usuário** | shelfie\_user |
+| **Senha** | shelfie123 |
 
----
+-----
 
-## ❓ Problemas comuns
+## 🛑 Gerenciamento do Ambiente
 
-**Porta 8080 ocupada?**  
-No `docker-compose.yml`, troque `"8080:80"` por `"8888:80"` e acesse `http://localhost:8888`.
+  * **Para parar o projeto:** `docker compose down`
+  * **Para apagar todos os dados do banco:** `docker compose down -v`
 
-**Erro de permissão no Linux?**  
-Rode com `sudo docker compose up --build`.
