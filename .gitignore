@@ -1,0 +1,7 @@
+# Docker volumes
+mongo_data/
+
+# Sistema
+.DS_Store
+Thumbs.db
+*.log

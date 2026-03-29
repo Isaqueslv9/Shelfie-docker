@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:7
+    container_name: shelfie_mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: shelfie123
+      MONGO_INITDB_DATABASE: shelfie
+    volumes:
+      - mongo_data:/data/db
+      - ./mongo-init/init.js:/docker-entrypoint-initdb.d/init.js:ro
+    ports:
+      - "27017:27017"
+    networks:
+      - shelfie_net
+
+  php:
+    build: ./app
+    container_name: shelfie_php
+    restart: always
+    volumes:
+      - ./app:/var/www/html
+    depends_on:
+      - mongodb
+    networks:
+      - shelfie_net
+
+  nginx:
+    image: nginx:alpine
+    container_name: shelfie_nginx
+    restart: always
+    ports:
+      - "8080:80"
+    volumes:
+      - ./app:/var/www/html
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php
+    networks:
+      - shelfie_net
+
+volumes:
+  mongo_data:
+
+networks:
+  shelfie_net:
+    driver: bridge
