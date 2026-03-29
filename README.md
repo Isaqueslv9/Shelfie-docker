@@ -6,7 +6,7 @@ Originalmente concebido em PHP com MySQL (XAMPP), o projeto passou por uma **mod
 
 -----
 
-## 🛠️ Meu Papel e Contribuições (DevOps & Migration)
+## 🛠️ Meu Papel e Contribuições
 
 Atuei como responsável pela infraestrutura e transição tecnológica:
 
@@ -14,7 +14,6 @@ Atuei como responsável pela infraestrutura e transição tecnológica:
   * **Dockerização:** Criação de `Dockerfiles` customizados para PHP 8.2 com as extensões do MongoDB.
   * **Orquestração:** Uso de **Docker Compose** para gerenciar os 3 containers (App, DB, Proxy).
   * **Nginx como Proxy Reverso:** Configuração do servidor web para atuar como porta de entrada e camada de abstração.
-  * **Habilidades DevOps:** Demonstração de infraestrutura como código (IaC) e ambiente portátil para trabalho em equipe.
 
 -----
 
