@@ -6,7 +6,7 @@ Originalmente concebido em PHP com MySQL (XAMPP), o projeto passou por uma **mod
 
 -----
 
-## 🛠️ Meu Papel e Contribuições
+## Meu Papel e Contribuições
 
 Atuei como responsável pela infraestrutura e transição tecnológica:
 
@@ -17,7 +17,7 @@ Atuei como responsável pela infraestrutura e transição tecnológica:
 
 -----
 
-## 🚀 Como rodar (Qualquer PC com Docker instalado)
+## Como rodar 
 
 1.  **Instale o Docker Desktop**
 
@@ -42,7 +42,7 @@ Atuei como responsável pela infraestrutura e transição tecnológica:
 
 -----
 
-## 🗂️ Estrutura do Projeto
+## Estrutura do Projeto
 
 ```text
 shelfie-mongo/
@@ -58,7 +58,7 @@ shelfie-mongo/
 
 -----
 
-## 🗄️ Modelo de Dados no MongoDB
+## Modelo de Dados no MongoDB
 
 A migração permitiu uma estrutura mais flexível em comparação ao MySQL original:
 
