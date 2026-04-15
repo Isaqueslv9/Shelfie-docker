@@ -17,31 +17,6 @@ Atuei como responsável pela infraestrutura e transição tecnológica:
 
 -----
 
-## Como rodar 
-
-1.  **Instale o Docker Desktop**
-
-      * [Windows/Mac](https://www.docker.com/products/docker-desktop) | [Linux](https://docs.docker.com/engine/install/)
-
-2.  **Abra o terminal na pasta do projeto**
-
-    ```bash
-    cd shelfie-mongo
-    ```
-
-3.  **Suba os containers com um único comando**
-
-    ```bash
-    docker compose up --build
-    ```
-
-    *Na primeira vez, o Docker baixará as imagens e instalará a extensão do MongoDB (\~2 min).*
-
-4.  **Acesse no navegador**
-    [http://localhost:8080](https://www.google.com/search?q=http://localhost:8080)
-
------
-
 ## Estrutura do Projeto
 
 ```text
@@ -102,8 +77,4 @@ A migração permitiu uma estrutura mais flexível em comparação ao MySQL orig
 
 -----
 
-## 🛑 Gerenciamento do Ambiente
-
-  * **Para parar o projeto:** `docker compose down`
-  * **Para apagar todos os dados do banco:** `docker compose down -v`
 
